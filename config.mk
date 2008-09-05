@@ -15,4 +15,3 @@ DELETE		:= rm -rf
 COPY		:= cp
 MKDIR		:= mkdir -p
 
-# comment test
