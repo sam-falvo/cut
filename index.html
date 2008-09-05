@@ -1,0 +1,111 @@
+<html>
+ <head>
+  <title>
+   CUT 3.0
+  </title>
+  <link href="/css/core.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+  <a href="/navigation">Navigate This Site...</a>
+  <div id="Content">
+   <h1>
+    CUT 3.0 -- C Unit Tester 3.0
+   </h1>
+   <h2>
+    What is CUT?
+   </h2>
+   <p>
+    CUT is designed to aid the C (or C-derived, statically compiled
+    language) programmer in implementing unit or programmer tests,
+    primarily to facilitate test-driven (and related) development
+    practices.
+   </p>
+   <h2>
+    Who Contributed to CUT?
+   </h2>
+   <p>
+    CUT was primarily written by myself and by Billy Tanksley, starting
+    life as distinct, and even competing, CUT 1.0 and test-assert
+    packages, respectively. When it was finally decided to combine both
+    packages into a single tool, CUT 2.0 was released, and found to be
+    vastly more useful than either expected.
+   </p>
+   <p>
+    In 2004, Sergei Gnezdov <a
+    href="../repo/stable/docs/tutorials/sergei_gnezdov/Tutorial.pdf">
+    wrote a tutorial</a> based on CUT 2.3, which is still applicable
+    to the CUT 2.4 version.  You will need Adobe Acrobat reader to read
+    the file, as it was written in LaTeX.  The tutorial and its source
+    files are also included in the source distribution.  Sergei also
+    contributed CUT to the BSD ports collection!
+   </p>
+   <h2>
+    What is Different About CUT 3 Versus 2.4?
+   </h2>
+   <ul>
+    <li>
+     CUT 3 has been rewritten in Haskell.  Originally intended as a
+     quick-n-dirty port of 2.4 to learn the language, it was quickly
+     realized that the quality of the code was substantially improved
+     over its previous C implementation.
+    </li>
+    <li>
+     CUT 3 includes proper "setup" support now, so that you can write
+     more "normal" unit tests.  Setups and Bringups can be mutually
+     nested to any reasonable depth, and interact in the expected ways.
+    </li>
+    <li>
+     No more <tt>ASSERT_EQUALS</tt>, <tt>__cut_interject()</tt>, or other
+     functions that date back to 1998's TestAssert implementation.  As
+     indicated in the documentation for CUT 2.1, these things were all
+     deprecated in favor of just using ASSERT().  3.0 seemed like a good
+     time to finally lose the baggage.
+    </li>
+   </ul>
+   <h2>
+    Getting CUT
+   </h2>
+   <p>
+    CUT 3.0 is still being developed, and therefore has no binaries
+    available for download.  However, if you use the <a
+    href="http://www.darcs.net">Darcs</a> source management tool, you may
+    acquire the latest development snapshot, which includes these
+    webpages as well.  Contributors to the code are encouraged to update
+    corresponding web pages as well, to ensure the online documentation
+    matches the latest CUT developments.
+   </p>
+   <div id="Example">
+    <tt>
+     darcs get http://www.falvotech.com/content/cut/3
+    </tt>
+   </div>
+   <h2>
+    Installing CUT
+   </h2>
+   <p>
+    Once acquired, simply execute the following (you'll need GNU Make
+    version 3.80 or later for the non-recursive make system to work):
+   </p>
+   <div id="Example">
+    <tt>
+     make all<br/>
+     PREFIX=/usr/local make install
+    </tt>
+   </div>
+   <p>
+    If you, like me, are a GoboLinux user, you can execute the following:
+   </p>
+   <div id="Example">
+    <tt>
+     make all<br/>
+     PREFIX=/Programs/Cut/3.0pre1 make install<br/>
+     SymlinkProgram Cut 3.0pre1
+    </tt>
+   </div>
+   <p>
+    That should build and install the cutgen utility.  Other components will be
+    documented and automated as time permits.
+   </p>
+  </div>
+ </body>
+</html>
