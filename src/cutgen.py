@@ -20,7 +20,14 @@ def singleParseTreeFor(files):
 
 def testRunnerFor(parseTree):
     assert(common.typeOf(parseTree) == "list")  #it's a list of lists
-    return parseTree
+
+    for node in parseTree:
+        node.emitExtern()
+
+    print "\nvoid main(int argc, char *argv[]) {"
+    for node in parseTree:
+        node.emitCode()
+    print "}"
 
 
 def generateTestRunner(files):

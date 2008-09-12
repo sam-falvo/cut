@@ -5,17 +5,35 @@ import common
 import lexer
 
 
-class Test(object):
-    def __init__(my, name):
+class _T(object):
+    def __init__(my, prefix, name):
         my.name = name
+        my.prefix = prefix
+
+    def emitCode(my):
+        print "    %s%s();" % (my.prefix, my.name)
+
+    def emitExtern(my):
+        print "extern %s%s(void);" % (my.prefix, my.name)
+
+
+class _C(_T):
+    def emitExtern(my):
+        super(_C, my).emitExtern()
+        print "extern __CUT_TAKEDOWN__%s(void);" % my.name
+
+
+class Test(_T):
+    def __init__(self, name):
+        super(Test, self).__init__("__CUT__", name)
 
     def __repr__(my):
         return "Test(\"%s\")" % my.name
 
 
-class Bringup(Test):
+class Bringup(_C):
     def __init__(my, name, children):
-        super(Bringup, my).__init__(name)
+        super(Bringup, my).__init__("__CUT_BRINGUP__", name)
         my.children = children
 
     def childrenRepr(my):
@@ -25,10 +43,21 @@ class Bringup(Test):
     def __repr__(my):
         return "Bringup(\"%s\", [%s])" % (my.name, my.childrenRepr())
 
+    def emitExtern(my):
+        super(Bringup, my).emitExtern()
+        for c in my.children:
+            c.emitExtern()
 
-class Setup(Test):
+    def emitCode(my):
+        print "    %s%s();" % (my.prefix, my.name)
+        for c in my.children:
+            c.emitCode()
+        print "    __CUT_TAKEDOWN__%s();" % my.name
+
+
+class Setup(_C):
     def __init__(my, name, children):
-        super(Setup, my).__init__(name)
+        super(Setup, my).__init__("__CUT_SETUP__", name)
         my.children = children
 
     def childrenRepr(my):
@@ -37,6 +66,17 @@ class Setup(Test):
 
     def __repr__(my):
         return "Setup(\"%s\", [%s])" % (my.name, my.childrenRepr())
+
+    def emitExtern(my):
+        super(Setup, my).emitExtern()
+        for c in my.children:
+            c.emitExtern()
+
+    def emitCode(my):
+        for c in my.children:
+            print "    %s%s();" % (my.prefix, my.name)
+            c.emitCode();
+            print "    __CUT_TAKEDOWN__%s();" % my.name
 
 
 def parseUsingLexer(l, tree):
