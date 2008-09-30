@@ -5,7 +5,7 @@ LDFLAGS 	:=
 HC			:= ghc
 HCFLAGS 	:= -ibin
 
-# PREFIX	:= /Programs/OpenAX.25/0.0
+# PREFIX	:= /Programs/CUT/2.6
 BINPATH		:= $(PREFIX)/bin
 SBINPATH	:= $(PREFIX)/sbin
 LIBPATH		:= $(PREFIX)/lib
