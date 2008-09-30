@@ -1,6 +1,6 @@
 /*
  * cut.h
- * CUT 3.0
+ * CUT 2.6
  *
  * Copyright (c) 1998, 1999, 2000 Samuel A. Falvo II
  * Copyright (c) 2001 through 2007 Samuel A. Falvo II and others.
@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <cut/3/cut.h>
+#include <cut/2.6/cut.h>
 
 
 /** Each assertion that is run by CUT is assigned a number, starting at

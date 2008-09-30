@@ -2,7 +2,7 @@ CLEAN		:= $D/clean
 INSTALL		:= $D/install
 
 
-CUT_H		:= $(INCPATH)/cut/3/cut.h
+CUT_H		:= $(INCPATH)/cut/2.6/cut.h
 
 MODULES		:= $D/cut
 SRCS		:= $(MODULES:%=%.c)
