@@ -21,13 +21,15 @@ def singleParseTreeFor(files):
 def emitTestRunnerFor(parseTree):
     assert(common.typeOf(parseTree) == "list")  #it's a list of lists
 
+    print "#include <cut/2.6/cut.h>"
+
     for node in parseTree:
         node.emitExtern()
 
     print "\nvoid main(int argc, char *argv[]) {"
     for node in parseTree:
         node.emitCode()
-    print "}"
+    print "    return 0;\n}"
 
 
 def generateTestRunner(files):
