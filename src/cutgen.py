@@ -18,7 +18,7 @@ def singleParseTreeFor(files):
     return tree
 
 
-def testRunnerFor(parseTree):
+def emitTestRunnerFor(parseTree):
     assert(common.typeOf(parseTree) == "list")  #it's a list of lists
 
     for node in parseTree:
@@ -32,7 +32,7 @@ def testRunnerFor(parseTree):
 
 def generateTestRunner(files):
     assert(common.typeOf(files) == "list")
-    print testRunnerFor(singleParseTreeFor(files))
+    emitTestRunnerFor(singleParseTreeFor(files))
 
 
 def main(argv):
