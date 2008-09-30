@@ -1,12 +1,12 @@
-#ifndef CUT_3_CUT_H
-#define CUT_3_CUT_H
+#ifndef CUT_2_6_CUT_H
+#define CUT_2_6_CUT_H
 
 /*
  * cut.h
- * CUT 3.0
+ * CUT 2.6
  *
  * Copyright (c) 1998, 1999, 2000 Samuel A. Falvo II
- * Copyright (c) 2001 through 2007 Samuel A. Falvo II and others.
+ * Copyright (c) 2001 through 2008 Samuel A. Falvo II and others.
  * See LICENSE for details.
  *
  * Based on William D. Tanksley's "TestAssert" package.
