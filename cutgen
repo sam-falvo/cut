@@ -1,3 +1,4 @@
 #!/bin/sh
-python cutgen.py $*
+D=`dirname $0`
+python $D/cutgen.py $*
 
