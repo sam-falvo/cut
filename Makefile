@@ -31,7 +31,8 @@ build: libcut.a
 	mkdir -p $(BUILD)/lib
 	mkdir -p $(INCPATH)
 	cp *.py $(BUILD)/bin
-	chmod a+x $(BUILD)/bin/cutgen.py
+	cp cutgen $(BUILD)/bin
+	chmod a+x $(BUILD)/bin/cutgen.py $(BUILD)/bin/cutgen
 	cp libcut.a $(BUILD)/lib
 	cp cut.h $(INCPATH)
 
