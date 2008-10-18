@@ -1,37 +1,25 @@
-#
-# This file generally should not be changed.  If you need to make
-# alterations to the configuration, you really ought to edit config.mk
-# instead.
-#
-
-include config.mk
-include nrmf.mk
-
-ALL_BINS			:=
-ALL_CLEAN			:=
-ALL_INSTALLS		:=
-ALL_LIBS			:=
+BUILD	?= ./build
+VERSION	?= 2.6
 
 
-$(call subdir,lib)
-$(call subdir,src)
-$(call subdir,include)
+clean:
+	rm -f *.o *.a *.pyc
 
 
-all: $(ALL_LIBS) $(ALL_BINS)
+cut.o: cut.c cut.h
+	$(CC) -c -o cut.o cut.c
 
 
-.c.o:
-	$(CC) $(CCFLAGS) -c -o $@ $<
+libcut.a: cut.o
+	ar r libcut.a cut.o
 
 
+build: libcut.a
+	rm -rf $(BUILD)
+	mkdir -p $(BUILD)/bin
+	mkdir -p $(BUILD)/lib
+	mkdir -p $(BUILD)/include/$(VERSION)
+	cp *.py $(BUILD)/bin
+	cp libcut.a $(BUILD)/lib
+	cp cut.h $(BUILD)/include/$(VERSION)
 
-
-.PHONY: clean
-
-clean: $(ALL_CLEAN)
-
-
-.PHONY: install
-
-install: all $(ALL_INSTALLS)

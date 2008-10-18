@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <cut/2.6/cut.h>
+#include "cut.h"
 
 
 /** Each assertion that is run by CUT is assigned a number, starting at
