@@ -20,6 +20,7 @@ build: libcut.a
 	mkdir -p $(BUILD)/lib
 	mkdir -p $(BUILD)/include/$(VERSION)
 	cp *.py $(BUILD)/bin
+	chmod a+x $(BUILD)/bin/cutgen.py
 	cp libcut.a $(BUILD)/lib
 	cp cut.h $(BUILD)/include/$(VERSION)
 
