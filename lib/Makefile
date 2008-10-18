@@ -24,7 +24,7 @@ ALL_LIBS += $(LIB)
 .PHONY: $(CLEAN)
 
 $(CLEAN):
-	$(DELETE) $(OBJ) $(LIB)
+	$(DELETE) $(OBJS) $(LIB)
 
 ALL_CLEAN += $(CLEAN)
 

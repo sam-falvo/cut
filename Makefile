@@ -13,8 +13,8 @@ ALL_INSTALLS		:=
 ALL_LIBS			:=
 
 
-$(call subdir,bin)
 $(call subdir,lib)
+$(call subdir,src)
 
 
 all: $(ALL_LIBS) $(ALL_BINS)
@@ -33,4 +33,4 @@ clean: $(ALL_CLEAN)
 
 .PHONY: install
 
-install: $(ALL_INSTALLS)
+install: all $(ALL_INSTALLS)
