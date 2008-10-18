@@ -15,6 +15,7 @@ ALL_LIBS			:=
 
 $(call subdir,lib)
 $(call subdir,src)
+$(call subdir,include)
 
 
 all: $(ALL_LIBS) $(ALL_BINS)
