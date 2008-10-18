@@ -1,4 +1,4 @@
-# PREFIX	:= /Programs/CUT/2.6
+PREFIX		?= .
 BINPATH		:= $(PREFIX)/bin
 SBINPATH	:= $(PREFIX)/sbin
 LIBPATH		:= $(PREFIX)/lib
