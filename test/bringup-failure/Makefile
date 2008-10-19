@@ -1,9 +1,11 @@
+.phony: help
+help:
+	@echo "Use: make check1 PREFIX=<installation dir>"
+	@echo " or: make check2 PREFIX=<installation dir>"
+	@echo " or: make clean"
+
 .c.o:
 	gcc -g -I$(PREFIX)/include -c -o $@ $<
-
-check:
-	echo "Type make check1 to perform the first check."
-	echo "Type make check2 to perform the second check."
 
 check1: cutcheck1.c
 	gcc -g -I$(PREFIX)/include -L$(PREFIX)/lib cutcheck1.c cut-explode1.o -o cutcheck -lcut
