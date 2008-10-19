@@ -5,7 +5,7 @@
  * By William Tanksley
  */
 
-#include <cut/3/cut.h>
+#include <cut/2.6/cut.h>
 
 /* A pointless example -- tests nothing useful, will never fail.
  * This nonetheless shows the basic form of tests. */
