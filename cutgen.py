@@ -26,7 +26,7 @@ def emitTestRunnerFor_to_(parseTree, channel):
     for node in parseTree:
         node.emitExternTo_(channel)
 
-    channel.write("\nvoid main(int argc, char *argv[]) {\n")
+    channel.write("\nint main(int argc, char *argv[]) {\n")
     for node in parseTree:
         node.emitCodeTo_(channel)
     channel.write("    return 0;\n}\n")
