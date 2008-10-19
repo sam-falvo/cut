@@ -21,12 +21,15 @@ def singleParseTreeFor(files):
 def emitTestRunnerFor_to_(parseTree, channel):
     assert(common.typeOf(parseTree) == "list")  #it's a list of lists
 
+    channel.write("#include <stdlib.h>\n")
     channel.write("#include <cut/2.6/cut.h>\n")
 
     for node in parseTree:
         node.emitExternTo_(channel)
 
     channel.write("\nint main(int argc, char *argv[]) {\n")
+    channel.write("    if(argc == 1) __cut_init(__CUT_NO_BREAKPOINT_SPECIFIED__);\n")
+    channel.write("    else          __cut_init(atoi(argv[1]));\n\n")
     for node in parseTree:
         node.emitCodeTo_(channel)
     channel.write("    return 0;\n}\n")
