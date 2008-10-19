@@ -7,15 +7,18 @@ import common
 def collatedArguments(args):
     assert(common.typeOf(args) == "list")
 
-    options = []
+    options = dict()
     files = []
     errors = []
 
-    optionMap = {'h': 'help',
-                 '?': 'help',
+    optionMap = {'?': 'help',
+                 'h': 'help',
+                 'o': 'output',
                  'v': 'version'}
 
-    for a in args:
+    def interpret(argList):
+        a = argList[0]
+
         if a[0] == '-':
             if len(a) >= 2:
                 if a[1] == '-':
@@ -23,18 +26,31 @@ def collatedArguments(args):
                     if ((option[0:4] == 'help') or
                         (option[0:7] == 'license') or
                         (option[0:7] == 'version')):
-                        options.append(option)
+                        options[option] = None
+                    elif option == 'output':
+                        options[option] = argList[1]
+                        argList = argList[1:]
                     else:
                         errors.append("\"--%s\": unknown option" % option)
                 else:
                     if a[1] in optionMap:
-                        options.append(optionMap[a[1]])
+                        if a[1] == 'o':
+                            options["output"] = argList[1]
+                            argList = argList[1:]
+                        else:
+                            options[optionMap[a[1]]] = None
                     else:
                         errors.append("\"%s\": unknown option" % a)
             else:
                 errors.append("\"-\": option too short")
         else:
             files.append(a)
+
+        return argList[1:]
+
+    args_ = list(args)
+    while args_:
+        args_ = interpret(args_)
 
     return (options, files, errors)
 
@@ -93,10 +109,11 @@ def usageInformation(command):
         "",
         "SHORT    LONG",
         "OPTION   OPTION      DESCRIPTION",
-        "---------------------------------------------------------",
+        "---------------------------------------------------------------------",
         "-h, -?   --help      Prints this quick reference.",
         "         --license   Prints the license for this software.",
+        "-o       --output    Specifies the output filename.  Default: stdout.",
         "-v       --version   Prints only the version information.",
-        "---------------------------------------------------------",
+        "---------------------------------------------------------------------",
     ])
 

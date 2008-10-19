@@ -18,23 +18,23 @@ def singleParseTreeFor(files):
     return tree
 
 
-def emitTestRunnerFor(parseTree):
+def emitTestRunnerFor_to_(parseTree, channel):
     assert(common.typeOf(parseTree) == "list")  #it's a list of lists
 
-    print "#include <cut/2.6/cut.h>"
+    channel.write("#include <cut/2.6/cut.h>\n")
 
     for node in parseTree:
-        node.emitExtern()
+        node.emitExternTo_(channel)
 
-    print "\nvoid main(int argc, char *argv[]) {"
+    channel.write("\nvoid main(int argc, char *argv[]) {\n")
     for node in parseTree:
-        node.emitCode()
-    print "    return 0;\n}"
+        node.emitCodeTo_(channel)
+    channel.write("    return 0;\n}\n")
 
 
-def generateTestRunner(files):
+def generateTestRunnerFor_to_(files, channel):
     assert(common.typeOf(files) == "list")
-    emitTestRunnerFor(singleParseTreeFor(files))
+    emitTestRunnerFor_to_(singleParseTreeFor(files), channel)
 
 
 def main(argv):
@@ -47,6 +47,7 @@ def main(argv):
     needToShowHelp = 'help' in options
     needToShowVersion = 'version' in options
     needToShowLicense = 'license' in options
+    specifiesOutput = 'output' in options
 
     if needToShowLicense:
         print termsAndConditions
@@ -59,7 +60,11 @@ def main(argv):
             for error in errors:
                 print error
         else:
-            generateTestRunner(files)
+            outputChannel = sys.stdout
+            if specifiesOutput:
+                outputChannel = open(options['output'], "w")
+
+            generateTestRunnerFor_to_(files, outputChannel)
 
 
 if __name__ == "__main__":

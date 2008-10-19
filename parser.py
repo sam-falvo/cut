@@ -5,25 +5,25 @@ import common
 import lexer
 
 
-class _T(object):
+class _GenericTest(object):
     def __init__(my, prefix, name):
         my.name = name
         my.prefix = prefix
 
-    def emitCode(my):
-        print "    %s%s();" % (my.prefix, my.name)
+    def emitCodeTo_(my, channel):
+        channel.write("    %s%s();\n" % (my.prefix, my.name))
 
-    def emitExtern(my):
-        print "extern %s%s(void);" % (my.prefix, my.name)
-
-
-class _C(_T):
-    def emitExtern(my):
-        super(_C, my).emitExtern()
-        print "extern __CUT_TAKEDOWN__%s(void);" % my.name
+    def emitExternTo_(my, channel):
+        channel.write("extern %s%s(void);\n" % (my.prefix, my.name))
 
 
-class Test(_T):
+class _GenericContext(_GenericTest):
+    def emitExternTo_(my, channel):
+        super(_GenericContext, my).emitExternTo_(channel)
+        channel.write("extern __CUT_TAKEDOWN__%s(void);\n" % my.name)
+
+
+class Test(_GenericTest):
     def __init__(self, name):
         super(Test, self).__init__("__CUT__", name)
 
@@ -31,7 +31,7 @@ class Test(_T):
         return "Test(\"%s\")" % my.name
 
 
-class Bringup(_C):
+class Bringup(_GenericContext):
     def __init__(my, name, children):
         super(Bringup, my).__init__("__CUT_BRINGUP__", name)
         my.children = children
@@ -43,19 +43,19 @@ class Bringup(_C):
     def __repr__(my):
         return "Bringup(\"%s\", [%s])" % (my.name, my.childrenRepr())
 
-    def emitExtern(my):
-        super(Bringup, my).emitExtern()
+    def emitExternTo_(my, channel):
+        super(Bringup, my).emitExternTo_(channel)
         for c in my.children:
-            c.emitExtern()
+            c.emitExternTo_(channel)
 
-    def emitCode(my):
-        print "    %s%s();" % (my.prefix, my.name)
+    def emitCodeTo_(my, channel):
+        channel.write("    %s%s();\n" % (my.prefix, my.name))
         for c in my.children:
-            c.emitCode()
-        print "    __CUT_TAKEDOWN__%s();" % my.name
+            c.emitCodeTo_(channel)
+        channel.write("    __CUT_TAKEDOWN__%s();\n" % my.name)
 
 
-class Setup(_C):
+class Setup(_GenericContext):
     def __init__(my, name, children):
         super(Setup, my).__init__("__CUT_SETUP__", name)
         my.children = children
@@ -72,11 +72,11 @@ class Setup(_C):
         for c in my.children:
             c.emitExtern()
 
-    def emitCode(my):
+    def emitCodeTo_(my, channel):
         for c in my.children:
-            print "    %s%s();" % (my.prefix, my.name)
-            c.emitCode();
-            print "    __CUT_TAKEDOWN__%s();" % my.name
+            channel.write("    %s%s();\n" % (my.prefix, my.name))
+            c.emitCodeTo_(channel);
+            channel.write("    __CUT_TAKEDOWN__%s();\n" % my.name)
 
 
 def parseUsingLexer(l, tree):
