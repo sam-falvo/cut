@@ -1,4 +1,4 @@
-#include <cut/3/cut.h>
+#include <cut/2.6/cut.h>
 #include <stdio.h>
 
 void __CUT_BRINGUP__Explode( void )

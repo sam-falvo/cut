@@ -1,3 +1,7 @@
+help:
+	@echo "Use: make check PREFIX=<installation dir>"
+	@echo " or: make clean"
+
 check: cutcheck.c
 	gcc -I$(PREFIX)/include -L$(PREFIX)/lib cutcheck.c cut-explode.o -o cutcheck -lcut
 	./cutcheck
