@@ -34,7 +34,7 @@ __cut_assert(char *fileName, int lineNumber, char *message, char *expression, in
     {
         if(assertCounter >= assertionThreshold)
         {
-            fprintf(stderr, "%s:%d:%s:Test breakpoint reached.\n", fileName, lineNumber, expression);
+            fprintf(stderr, "%s:%d: %s: break: %s\n", fileName, lineNumber, expression, message);
             exit(1);
         }
     }
@@ -45,7 +45,7 @@ __cut_assert(char *fileName, int lineNumber, char *message, char *expression, in
         return;
     }
 
-    fprintf(stderr, "%s:%d:%s:%s\n", fileName, lineNumber, expression, message);
+    fprintf(stderr, "%s:%d: %s: error: %s\n", fileName, lineNumber, expression, message);
     exit(2);
 }
 
