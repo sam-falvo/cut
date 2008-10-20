@@ -10,7 +10,7 @@
   <div id="Content">
    <h1>
     C Unit Tester 2.6<br />
-    1998 - 2008!
+    Celebrating its Tenth Anniversary: 1998 - 2008!
    </h1>
    <h2>
     What is CUT?
@@ -19,6 +19,94 @@
     CUT is designed to aid the C(-like) programmer in implementing unit
     or programmer tests, primarily to facilitate test-driven (and related)
     development practices.
+   </p>
+   <h2>
+    Synopsis
+   </h2>
+   <h3>
+    Generating the Test Runner
+   </h3>
+   <div id="Example">
+    <tt>cutgen [options] [file1 [file2 [...]]]</tt>
+   </div>
+   <p>
+    <tt>cutgen</tt> looks through the set of source files file1..filen, seeking
+    idiomatic function definitions to discover unit test functions, bring-up
+    functions, set-up functions, and their associated take-down functions.
+    With this information, <tt>cutgen</tt> builds a <i>test runner</i>, which
+    when compiled will invoke the unit tests specified in the input files.
+   </p>
+   <p>
+    The <tt>-o/--output</tt> option, if specified, causes the test runner to be
+    written to named file.  Without this option, <tt>cutgen</tt> defaults to
+    writing the test runner to stdout.
+   </p>
+   <p>
+    The <tt>--license</tt>, <tt>-h/--help</tt>, and <tt>--version</tt> options
+    results in the display of the relavent information; no further action is
+    taken, regardless of the presence of other options.
+   </p>
+   <h3>
+    Using the Test Runner
+   </h3>
+   <p>
+    Once the test runner has been compiled, it may be invoked without any
+    parameters.  This will result in the unit tests being executed, typically
+    in the order they were found by <tt>cutgen</tt>.  If all unit tests
+    executed correctly, then <i>no</i> output is generated.
+   </p>
+   <p>
+    To see a log of the assertions executed, pass the <tt>--verbose</tt> flag.
+    The long flag is required; no short flag equivalent exists.
+   </p>
+   <p>
+    You'll notice each assertion has a unique integer associated with it.
+    Sometimes, stopping the unit test execution at a specific assertion has
+    proven useful.  Use the <tt>--break-at</tt> long option to indicate which
+    assertion to "break" at.  Use <tt>--verbose</tt> to find the number of the
+    assertion you'd like to stop at.
+   </p>
+   <h3>
+    Diagnostic Messages
+   </h3>
+   <p>
+    Previous versions of CUT utilized a system of printing a dot for each
+    assertion it executed.  This significantly complexified CUT's output of
+    diagnostics, while concurrently rendering integration into IDEs and similar
+    tools effectively impossible.  Starting with version 2.6, CUT no longer
+    renders any output at all, unless a diagnostic message demands it.
+   </p>
+   <p>
+    Diagnostic messages follow a prescribed format:
+   </p>
+   <div id="Example">
+    <i>filename</i>:<i>line-number</i>:<i>assertion expression</i>:<i>kind</i>:<i>user-supplied diagnostic</i>
+   </div>
+   <p>
+    The filename and line number indicates the source file, and the line within
+    said file, containing the assertion.
+   </p>
+   <p>
+    The assertion expression represents the assertion's boolean expression.
+    This field exists as a convenience for the programmer, preventing the
+    programmer from having to edit the unit test source to find out what went
+    wrong in about 50% of the cases.
+   </p>
+   <p>
+    The kind of diagnostic follows; it will be one of three possibilities:
+    <tt>log</tt> (for <tt>--verbose</tt> output), <tt>break</tt> for a
+    breakpoint hit, or <tt>error</tt> for a unit test failure.  Strictly
+    speaking, this field exists for the benefit of some versions of
+    <tt>make</tt>, which colorize their outputs depending on the presence of
+    certain keywords, <tt>error</tt> usually resulting in a distinctively
+    highlighted line.  This helps to track bugs down when pouring through
+    voluminous amounts of recursive make output.
+   </p>
+   <p>
+    Each assertion bundles with it a programmer-defined message which is output
+    as the final field.  Considering the wealth of information present in other
+    fields, however, good practice frowns on using this facility unless
+    positively necessary.
    </p>
    <h2>
     Who Contributed to CUT?
@@ -66,22 +154,41 @@
      lot.  So, I introduced the <tt>ASSERT_()</tt> macro which is a
      single-parameter assertion with an empty description.
     </li>
+    <li>
+     "Breakpoint" functionality is still supported.  The method of use has
+     changed, however.  You must now use the <tt>--break-at</tt> command-line
+     option to your test runner (e.g., <tt>cut-check --break-at 145</tt>).  Use
+     the <tt>--verbose</tt> option to display the running count of assertions
+     so far.
+    </li>
+    <li>
+     The output format has changed drastically, making it easier for
+     integration with other development tools.
+    </li>
    </ul>
    <h2>
     Getting CUT
    </h2>
    <p>
-    CUT 2.6 is officially released.  However, no binaries exist at this time.
+    Only source distributions of CUT may be downloaded here.
+   </p>
+   <div id="Example">
+    <a href="cut-2.6.tar.gz">http://www.falvotech.com/content/cut/2.6/cut-2.6.tar.gz</a>
+   </div>
+   <p>
     The <a href="http://www.selenic.com">Mercurial</a> repository exists at the
-    URL below.  Contributors to the code are encouraged to update corresponding
-    web pages as well, to ensure the online documentation matches the latest
-    CUT developments.
+    URL below.
    </p>
    <div id="Example">
     <tt>
      hg clone http://www.falvotech.com/content/cut
     </tt>
    </div>
+   <p>
+    Contributors to the code are encouraged to update corresponding
+    web pages as well, to ensure the online documentation matches the latest
+    CUT developments.
+   </p>
    <h2>
     Installing CUT
    </h2>
@@ -91,7 +198,6 @@
    </p>
    <div id="Example">
     <tt>
-     make all<br/>
      make install PREFIX=/usr/local
     </tt>
    </div>
@@ -103,7 +209,6 @@
    </p>
    <div id="Example">
     <tt>
-     make all<br />
      make install PREFIX=/Programs/CUT/2.6<br />
      SymlinkProgram Cut 2.6
     </tt>
