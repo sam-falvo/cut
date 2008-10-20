@@ -28,8 +28,9 @@ def emitTestRunnerFor_to_(parseTree, channel):
         node.emitExternTo_(channel)
 
     channel.write("\nint main(int argc, char *argv[]) {\n")
-    channel.write("    if(argc == 1) __cut_init(__CUT_NO_BREAKPOINT_SPECIFIED__);\n")
-    channel.write("    else          __cut_init(atoi(argv[1]));\n\n")
+    channel.write("    __cut_assumeDefaults();\n")
+    channel.write("    __cut_initializeFromArguments_(argc, argv);\n")
+
     for node in parseTree:
         node.emitCodeTo_(channel)
     channel.write("    return 0;\n}\n")

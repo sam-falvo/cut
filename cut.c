@@ -10,6 +10,7 @@
  * Based on Samuel A. Falvo II's CUT 1.0 package.
  */
 
+#include <getopt.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "cut.h"
@@ -26,6 +27,9 @@ static unsigned int assertCounter;
  */
 static unsigned int assertionThreshold;
 
+/** Non-zero if verbose mode activated. */
+static int isVerbose;
+
 
 void
 __cut_assert(char *fileName, int lineNumber, char *message, char *expression, int value )
@@ -41,6 +45,10 @@ __cut_assert(char *fileName, int lineNumber, char *message, char *expression, in
 
     if(value)
     {
+        if(isVerbose) {
+            fprintf(stderr, "%s:%d: %s: log: %s\n", fileName, lineNumber, expression, message);
+        }
+
         assertCounter++;
         return;
     }
@@ -50,10 +58,44 @@ __cut_assert(char *fileName, int lineNumber, char *message, char *expression, in
 }
 
 
-void 
-__cut_init(unsigned int breakPointAt) 
-{
+void
+__cut_assumeDefaults() {
     assertCounter = 0;
-    assertionThreshold = breakPointAt;
+    assertionThreshold = __CUT_NO_BREAKPOINT_SPECIFIED__;
+    isVerbose = 0;
+}
+
+void 
+__cut_initializeFromArguments_(int argc, char *argv[]) {
+    static struct option opts[] = {
+        {"break-at", required_argument, NULL,       'b'},
+        {"verbose",  no_argument,       &isVerbose, 1},
+        {0,          0,                 NULL,       0}
+    };
+    int unused = 0;
+    int c;
+
+    do {
+        c = getopt_long(argc, argv, "b:v", opts, &unused);
+        if(c > -1) {
+            switch(c) {
+            case 0:
+                /* Ignore flag-setting long options; they're handled automatically for us. */
+                break;
+
+            case 'b':
+                assertionThreshold = atoi(optarg);
+                break;
+
+            case 'v':
+                isVerbose = 1;
+                break;
+
+            default:
+                fprintf(stderr, "Ignoring option -%c\n", c);
+                break;
+            }
+        }
+    } while(c != -1);
 }
 
