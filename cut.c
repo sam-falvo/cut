@@ -38,7 +38,7 @@ __cut_assert(char *fileName, int lineNumber, char *message, char *expression, in
     {
         if(assertCounter >= assertionThreshold)
         {
-            fprintf(stderr, "%s:%d: %s: break: %s\n", fileName, lineNumber, expression, message);
+            fprintf(stderr, "%s:%d:%d: %s: break: %s\n", fileName, lineNumber, assertCounter, expression, message);
             exit(1);
         }
     }
@@ -46,14 +46,14 @@ __cut_assert(char *fileName, int lineNumber, char *message, char *expression, in
     if(value)
     {
         if(isVerbose) {
-            fprintf(stderr, "%s:%d: %s: log: %s\n", fileName, lineNumber, expression, message);
+            fprintf(stderr, "%s:%d:%d: %s: log: %s\n", fileName, lineNumber, assertCounter, expression, message);
         }
 
         assertCounter++;
         return;
     }
 
-    fprintf(stderr, "%s:%d: %s: error: %s\n", fileName, lineNumber, expression, message);
+    fprintf(stderr, "%s:%d:%d: %s: error: %s\n", fileName, lineNumber, assertCounter, expression, message);
     exit(2);
 }
 

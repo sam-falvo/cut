@@ -89,11 +89,16 @@
     Diagnostic messages follow a prescribed format:
    </p>
    <div id="Example">
-    <i>filename</i>:<i>line-number</i>:<i>assertion expression</i>:<i>kind</i>:<i>user-supplied diagnostic</i>
+    <i>filename</i>:<i>line-number</i>:<i>assertion number</i>:<i>assertion expression</i>:<i>kind</i>:<i>user-supplied diagnostic</i>
    </div>
    <p>
     The filename and line number indicates the source file, and the line within
     said file, containing the assertion.
+   </p>
+   <p>
+    The assertion number assigns a unique integer identifier to each assertion
+    encountered by the test runner.  This value may be used to set a
+    breakpoint.
    </p>
    <p>
     The assertion expression represents the assertion's boolean expression.
