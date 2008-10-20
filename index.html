@@ -50,6 +50,15 @@
     Using the Test Runner
    </h3>
    <p>
+    <b>NOTE:</b> compiling the generated test runner requires GNU getopt for
+    command-line processing.  If you're using Windows, you'll probably want to
+    look into the <a
+    href="http://www.codeproject.com/KB/cpp/xgetopt.aspx">XGetOpt package</a>.
+    As I haven't used Windows on any computer since 1995, I cannot tell you how
+    well this package works.  However, as I'm not doing anything abnormal with
+    it, the probability of success is high.
+   </p>
+   <p>
     Once the test runner has been compiled, it may be invoked without any
     parameters.  This will result in the unit tests being executed, typically
     in the order they were found by <tt>cutgen</tt>.  If all unit tests
