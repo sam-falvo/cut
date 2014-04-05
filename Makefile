@@ -1,5 +1,5 @@
 BUILD		?= ./build
-VERSION		?= 2.6
+VERSION		?= 2.7
 INCPATH		?= $(BUILD)/include/cut/$(VERSION)
 REFIX		?= .
 

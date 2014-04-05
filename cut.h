@@ -1,9 +1,9 @@
-#ifndef CUT_2_6_CUT_H
-#define CUT_2_6_CUT_H
+#ifndef CUT_2_7_CUT_H
+#define CUT_2_7_CUT_H
 
 /*
  * cut.h
- * CUT 2.6
+ * CUT 2.7
  *
  * Copyright (c) 1998, 1999, 2000 Samuel A. Falvo II
  * Copyright (c) 2001 through 2008 Samuel A. Falvo II and others.

@@ -1,6 +1,6 @@
 /*
  * cut.h
- * CUT 2.6
+ * CUT 2.7
  *
  * Copyright (c) 1998, 1999, 2000 Samuel A. Falvo II
  * Copyright (c) 2001 through 2007 Samuel A. Falvo II and others.

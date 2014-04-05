@@ -95,7 +95,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 def versionInformation(command):
     return "\n".join([
-        "%s 2.6 -- the C Unit-testing Tool" % command,
+        "%s 2.7 -- the C Unit-testing Tool" % command,
         license(False),
         "Licensed under BSD terms.  Use --license option to see the full license."
     ])

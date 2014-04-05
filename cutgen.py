@@ -21,7 +21,7 @@ def emitTestRunnerFor_to_(parseTree, channel):
     assert(common.typeOf(parseTree) == "list")  #it's a list of lists
 
     channel.write("#include <stdlib.h>\n")
-    channel.write("#include <cut/2.6/cut.h>\n")
+    channel.write("#include <cut/2.7/cut.h>\n")
     channel.write("extern \"C\" void __cut_assumeDefaults();\n")
     channel.write("extern \"C\" void __cut_initializeFromArguments_(int, char*[]);\n")
 
