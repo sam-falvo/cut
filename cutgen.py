@@ -8,7 +8,6 @@ import lexer
 import options as o
 import parser
 
-
 def singleParseTreeFor(files):
     assert(common.typeOf(files) == "list")
 
@@ -23,6 +22,8 @@ def emitTestRunnerFor_to_(parseTree, channel):
 
     channel.write("#include <stdlib.h>\n")
     channel.write("#include <cut/2.6/cut.h>\n")
+    channel.write("extern \"C\" void __cut_assumeDefaults();\n")
+    channel.write("extern \"C\" void __cut_initializeFromArguments_(int, char*[]);\n")
 
     for node in parseTree:
         node.emitExternTo_(channel)

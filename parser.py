@@ -4,6 +4,7 @@
 import common
 import lexer
 
+import sys
 
 class _GenericTest(object):
     def __init__(my, prefix, name):
@@ -14,13 +15,13 @@ class _GenericTest(object):
         channel.write("    %s%s();\n" % (my.prefix, my.name))
 
     def emitExternTo_(my, channel):
-        channel.write("extern %s%s(void);\n" % (my.prefix, my.name))
+        channel.write("extern void %s%s(void);\n" % (my.prefix, my.name))
 
 
 class _GenericContext(_GenericTest):
     def emitExternTo_(my, channel):
         super(_GenericContext, my).emitExternTo_(channel)
-        channel.write("extern __CUT_TAKEDOWN__%s(void);\n" % my.name)
+        channel.write("extern void __CUT_TAKEDOWN__%s(void);\n" % my.name)
 
 
 class Test(_GenericTest):
@@ -29,6 +30,7 @@ class Test(_GenericTest):
 
     def __repr__(my):
         return "Test(\"%s\")" % my.name
+
 
 
 class Bringup(_GenericContext):
@@ -67,10 +69,10 @@ class Setup(_GenericContext):
     def __repr__(my):
         return "Setup(\"%s\", [%s])" % (my.name, my.childrenRepr())
 
-    def emitExtern(my):
-        super(Setup, my).emitExtern()
+    def emitExternTo_(my, channel):
+        super(Setup, my).emitExternTo_(channel)
         for c in my.children:
-            c.emitExtern()
+            c.emitExternTo_(channel)
 
     def emitCodeTo_(my, channel):
         for c in my.children:
