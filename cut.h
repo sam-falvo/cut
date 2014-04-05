@@ -13,6 +13,10 @@
  * Based on Samuel A. Falvo II's CUT 1.0 package.
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define ASSERT(X,msg)   __cut_assert(__FILE__,__LINE__,msg,#X,X)
 #define ASSERT_(X)      __cut_assert(__FILE__,__LINE__,"",#X,X)
 
@@ -25,9 +29,14 @@
  * macros instead.
  */
 
-extern "C" void __cut_assert       ( char *, int, char *, char *, int );
-extern "C" void __cut_init         ( unsigned int );
+void __cut_assert       ( char *, int, char *, char *, int );
+void __cut_init         ( unsigned int );
+
 #define __CUT_NO_BREAKPOINT_SPECIFIED__ ((unsigned int)((int)(-1)))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
