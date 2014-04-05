@@ -25,8 +25,8 @@
  * macros instead.
  */
 
-void __cut_assert       ( char *, int, char *, char *, int );
-void __cut_init         ( unsigned int );
+extern "C" void __cut_assert       ( char *, int, char *, char *, int );
+extern "C" void __cut_init         ( unsigned int );
 #define __CUT_NO_BREAKPOINT_SPECIFIED__ ((unsigned int)((int)(-1)))
 
 #endif
