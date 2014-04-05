@@ -32,7 +32,7 @@ static int isVerbose;
 
 
 void
-__cut_assert(char *fileName, int lineNumber, char *message, char *expression, int value )
+__cut_assert(const char *fileName, int lineNumber, const char *message, const char *expression, int value )
 {
     if( assertionThreshold != __CUT_NO_BREAKPOINT_SPECIFIED__)
     {

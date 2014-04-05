@@ -29,7 +29,7 @@ extern "C" {
  * macros instead.
  */
 
-void __cut_assert       ( char *, int, char *, char *, int );
+void __cut_assert       ( const char *, int, const char *, const char *, int );
 void __cut_init         ( unsigned int );
 
 #define __CUT_NO_BREAKPOINT_SPECIFIED__ ((unsigned int)((int)(-1)))
